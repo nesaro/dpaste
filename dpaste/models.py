@@ -62,7 +62,7 @@ class Snippet(models.Model):
         super(Snippet, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('snippet_details', kwargs={'snippet_id': self.secret_id})
+        return reverse('dpaste:snippet_details', kwargs={'snippet_id': self.secret_id})
 
     def __unicode__(self):
         return self.secret_id

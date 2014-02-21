@@ -19,7 +19,7 @@
                 <div id="diff" style="display:none;"></div>
             </div>
             <div class="span3">
-                <form method="get" id="diffform" action="{% url "snippet_diff" %}">
+                <form method="get" id="diffform" action="{% url "dpaste:snippet_diff" %}">
                 {% csrf_token %}
                 <div class="tree">
                     {% for tree_item,structure in tree|tree_info %}
@@ -60,13 +60,13 @@
             {% endif %}
         </span>
         {% if snippet.pk|in_list:request.session.snippet_list %}
-        <a class="btn" href="{% url "snippet_delete" snippet.secret_id %}" onclick="return confirm('{% trans "Really delete this snippet?" %}');"><i class="icon-trash"></i> {% trans "Delete Now" %}</a>
+        <a class="btn" href="{% url "dpaste:snippet_delete" snippet.secret_id %}" onclick="return confirm('{% trans "Really delete this snippet?" %}');"><i class="icon-trash"></i> {% trans "Delete Now" %}</a>
         {% endif %}
         {% if not snippet.is_single %}
         <a class="btn snippet-diff-trigger" href="#snippet-diff"><i class="icon-search"></i> {% trans "Compare Snippets" %}</a>
         {% endif %}
-        <a class="btn" href="{% url "snippet_details_raw" snippet.secret_id %}"><i class="icon-align-left"></i> {% trans "View Raw" %}</a>
-        <a class="btn" href="{% url "snippet_gist" snippet.secret_id %}"
+        <a class="btn" href="{% url "dpaste:snippet_details_raw" snippet.secret_id %}"><i class="icon-align-left"></i> {% trans "View Raw" %}</a>
+        <a class="btn" href="{% url "dpaste:snippet_gist" snippet.secret_id %}"
             rel="nofollow" title="Create a secret Gist"><i class="icon-share"></i> {% trans "Gist" %}</a>
         {% if snippet.lexer != 'text' %}
         <a class="btn" href="#" id="toggleWordwrap">Wordwrap</a>
@@ -138,7 +138,7 @@ jQuery(function($) {
             diffReq.abort();
         }
 
-        diffReq = $.get("{% url "snippet_diff" %}", {
+        diffReq = $.get("{% url "dpaste:snippet_diff" %}", {
             a: a,
             b: b
         }).done(function(data) {
