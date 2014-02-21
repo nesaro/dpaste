@@ -68,7 +68,7 @@
         Like this yellow one here: <tt>http://dpaste.de/<strong>SiZrT</strong></tt>
     </p>
 
-    <form method="POST" action="{% url "snippet_delete" %}">
+    <form method="POST" action="{% url "dpaste:snippet_delete" %}">
         {% csrf_token %}
         <input name="snippet_id"> <input type="Submit" value="Submit"/>
     </form>
