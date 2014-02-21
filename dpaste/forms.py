@@ -8,11 +8,11 @@ from dpaste.models import Snippet
 from dpaste.highlight import LEXER_LIST, LEXER_DEFAULT, LEXER_KEYS
 
 EXPIRE_CHOICES = getattr(settings, 'DPASTE_EXPIRE_CHOICES', (
-    ('onetime', _(u'One Time Snippet')),
-    (3600, _(u'In one hour')),
-    (3600 * 24 * 7, _(u'In one week')),
-    (3600 * 24 * 30, _(u'In one month')),
-    # ('never', _(u'Never')),
+    ('onetime', _('One Time Snippet')),
+    (3600, _('In one hour')),
+    (3600 * 24 * 7, _('In one week')),
+    (3600 * 24 * 30, _('In one month')),
+    # ('never', _('Never')),
 ))
 EXPIRE_DEFAULT = getattr(settings, 'DPASTE_EXPIRE_DEFAULT', EXPIRE_CHOICES[3][0])
 MAX_CONTENT_LENGTH = getattr(settings, 'DPASTE_MAX_CONTENT_LENGTH', 250*1024*1024)
@@ -25,20 +25,20 @@ class SnippetForm(forms.ModelForm):
     )
 
     lexer = forms.ChoiceField(
-        label=_(u'Lexer'),
+        label=_('Lexer'),
         initial=LEXER_DEFAULT,
         choices=LEXER_LIST,
     )
 
     expires = forms.ChoiceField(
-        label=_(u'Expires'),
+        label=_('Expires'),
         choices=EXPIRE_CHOICES,
         initial=EXPIRE_DEFAULT,
     )
 
     # Honeypot field
     title = forms.CharField(
-        label=_(u'Title'),
+        label=_('Title'),
         required=False,
         widget=forms.TextInput(attrs={'autocomplete': 'off'}),
     )
@@ -79,11 +79,11 @@ class SnippetForm(forms.ModelForm):
     def clean_expires(self):
         expires = self.cleaned_data['expires']
 
-        if expires == u'never':
+        if expires == 'never':
             self.cleaned_data['expire_type'] = Snippet.EXPIRE_KEEP
             return None
 
-        if expires == u'onetime':
+        if expires == 'onetime':
             self.cleaned_data['expire_type'] = Snippet.EXPIRE_ONETIME
             return None
 

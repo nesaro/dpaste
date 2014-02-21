@@ -166,9 +166,9 @@ def snippet_diff(request, template_name='dpaste/snippet_diff.html'):
             fileA = Snippet.objects.get(pk=int(request.GET.get('a')))
             fileB = Snippet.objects.get(pk=int(request.GET.get('b')))
         except ObjectDoesNotExist:
-            return HttpResponseBadRequest(u'Selected file(s) does not exist.')
+            return HttpResponseBadRequest('Selected file(s) does not exist.')
     else:
-        return HttpResponseBadRequest(u'You must select two snippets.')
+        return HttpResponseBadRequest('You must select two snippets.')
 
     class DiffText(object):
         pass
@@ -187,7 +187,7 @@ def snippet_diff(request, template_name='dpaste/snippet_diff.html'):
         diff.content = '\n'.join(d).strip()
         diff.lexer = 'diff'
     else:
-        diff.content = _(u'No changes were made between this two files.')
+        diff.content = _('No changes were made between this two files.')
         diff.lexer = 'text'
 
     template_context = {
@@ -259,16 +259,16 @@ def about(request, template_name='dpaste/about.html'):
 
 def _format_default(s):
     """The default response is the snippet URL wrapped in quotes."""
-    return u'"%s%s"' % (BASE_URL, s.get_absolute_url())
+    return '"%s%s"' % (BASE_URL, s.get_absolute_url())
 
 def _format_url(s):
     """The `url` format returns the snippet URL, no quotes, but a linebreak after."""
-    return u'%s%s\n' % (BASE_URL, s.get_absolute_url())
+    return '%s%s\n' % (BASE_URL, s.get_absolute_url())
 
 def _format_json(s):
     """The `json` format export."""
     return json.dumps({
-        'url': u'%s%s' % (BASE_URL, s.get_absolute_url()),
+        'url': '%s%s' % (BASE_URL, s.get_absolute_url()),
         'content': s.content,
         'lexer': s.lexer,
     })
